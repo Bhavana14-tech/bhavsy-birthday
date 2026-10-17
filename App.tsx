@@ -85,7 +85,7 @@ const waterImage = import.meta.env.BASE_URL + 'water-motion.webp';
         await navigator.clipboard.writeText(window.location.href);
         setShareStatus('The birthday wish link has been copied.');
       } else {
-        setShareStatus(`Share this link: ${window.location.href}`);
+        setShareStatus('Share this link: ' + window.location.href);
       }
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') return;
