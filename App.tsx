@@ -89,7 +89,7 @@ const waterImage = import.meta.env.BASE_URL + 'water-motion.webp';
       }
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') return;
-      setShareStatus(`Copy this link to share: ${window.location.href}`);
+      setShareStatus('Copy this link to share: ' + window.location.href);
     }
   }
 
