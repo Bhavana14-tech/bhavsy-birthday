@@ -63,8 +63,8 @@ function App() {
   const wishTriggerRef = useRef<HTMLButtonElement>(null);
   const wishConfirmRef = useRef<HTMLButtonElement>(null);
 
-  const birthdayImage = `${import.meta.env.BASE_URL}bhaursy-birthday.png`;
-  const waterImage = `${import.meta.env.BASE_URL}water-motion.webp`;
+const birthdayImage = import.meta.env.BASE_URL + 'bhaursy-birthday.png';
+const waterImage = import.meta.env.BASE_URL + 'water-motion.webp';
 
   useEffect(() => {
     if (wishOpen) wishConfirmRef.current?.focus();
