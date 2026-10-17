@@ -1,4 +1,4 @@
-```tsx
+
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 
 const hearts = [0, 1, 2, 3, 4];
@@ -60,11 +60,12 @@ function App() {
   const [wishOpen, setWishOpen] = useState(false);
   const [wishStatus, setWishStatus] = useState('');
   const [wishCelebration, setWishCelebration] = useState(0);
+
   const wishTriggerRef = useRef<HTMLButtonElement>(null);
   const wishConfirmRef = useRef<HTMLButtonElement>(null);
 
-const birthdayImage = import.meta.env.BASE_URL + 'bhaursy-birthday.png';
-const waterImage = import.meta.env.BASE_URL + 'water-motion.webp';
+  const birthdayImage = import.meta.env.BASE_URL + 'bhaursy-birthday.png';
+  const waterImage = import.meta.env.BASE_URL + 'water-motion.webp';
 
   useEffect(() => {
     if (wishOpen) wishConfirmRef.current?.focus();
@@ -125,6 +126,7 @@ const waterImage = import.meta.env.BASE_URL + 'water-motion.webp';
     }
 
     if (event.key !== 'Tab') return;
+
     const buttons = event.currentTarget.querySelectorAll<HTMLButtonElement>('button');
     const first = buttons[0];
     const last = buttons[buttons.length - 1];
@@ -161,7 +163,7 @@ const waterImage = import.meta.env.BASE_URL + 'water-motion.webp';
           <span className="topline-rule" />
         </div>
 
-        <div className={`artwork-shell ${candlesLit ? 'candles-lit' : 'candles-out'}`}>
+        <div className={'artwork-shell ' + (candlesLit ? 'candles-lit' : 'candles-out')}>
           <div className="artwork-scene">
             <img
               className="artwork"
@@ -180,7 +182,7 @@ const waterImage = import.meta.env.BASE_URL + 'water-motion.webp';
 
             {candlesLit ? (
               <span
-                key={`candle-${candlePulse}`}
+                key={'candle-' + candlePulse}
                 className="candle-warmth"
                 aria-hidden="true"
               />
@@ -194,7 +196,7 @@ const waterImage = import.meta.env.BASE_URL + 'water-motion.webp';
 
             {wishCelebration > 0 && (
               <div
-                key={`wish-${wishCelebration}`}
+                key={'wish-' + wishCelebration}
                 className="wish-sparkles"
                 aria-hidden="true"
               >
@@ -313,4 +315,3 @@ const waterImage = import.meta.env.BASE_URL + 'water-motion.webp';
 }
 
 export default App;
-```
