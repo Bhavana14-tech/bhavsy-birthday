@@ -1,4 +1,4 @@
-
+```tsx
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 
 const hearts = [0, 1, 2, 3, 4];
@@ -45,18 +45,6 @@ function ShareIcon() {
   );
 }
 
-function OceanWaves() {
-  return (
-    <img
-      className="ocean-waves"
-      src="/water-motion.webp"
-      alt=""
-      aria-hidden="true"
-      draggable={false}
-    />
-  );
-}
-
 function Heart() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -74,6 +62,9 @@ function App() {
   const [wishCelebration, setWishCelebration] = useState(0);
   const wishTriggerRef = useRef<HTMLButtonElement>(null);
   const wishConfirmRef = useRef<HTMLButtonElement>(null);
+
+  const birthdayImage = `${import.meta.env.BASE_URL}bhaursy-birthday.png`;
+  const waterImage = `${import.meta.env.BASE_URL}water-motion.webp`;
 
   useEffect(() => {
     if (wishOpen) wishConfirmRef.current?.focus();
@@ -94,18 +85,18 @@ function App() {
         await navigator.clipboard.writeText(window.location.href);
         setShareStatus('The birthday wish link has been copied.');
       } else {
-        setShareStatus('Copy this page link to share the birthday wish.');
+        setShareStatus(`Share this link: ${window.location.href}`);
       }
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') return;
-      setShareStatus('Copy this page link to share the birthday wish.');
+      setShareStatus(`Copy this link to share: ${window.location.href}`);
     }
   }
 
   function lightCandles() {
     setCandlesLit(true);
     setCandlePulse((pulse) => pulse + 1);
-    setWishStatus('');
+    setWishStatus('The candles are glowing again!');
   }
 
   function blowOutCandles() {
@@ -121,7 +112,7 @@ function App() {
 
   function completeWish() {
     setWishOpen(false);
-    setWishStatus('May all your dreams come true, always.');
+    setWishStatus('May all your dreams come true, always. ♡');
     setWishCelebration((celebration) => celebration + 1);
     wishTriggerRef.current?.focus();
   }
@@ -137,6 +128,7 @@ function App() {
     const buttons = event.currentTarget.querySelectorAll<HTMLButtonElement>('button');
     const first = buttons[0];
     const last = buttons[buttons.length - 1];
+
     if (!first || !last) return;
 
     if (event.shiftKey && document.activeElement === first) {
@@ -152,12 +144,17 @@ function App() {
     <main className="birthday-page">
       <div className="floating-hearts" aria-hidden="true">
         {hearts.map((heart) => (
-          <span className="floating-heart" key={heart}><Heart /></span>
+          <span className="floating-heart" key={heart}>
+            <Heart />
+          </span>
         ))}
       </div>
 
       <section className="page-frame" aria-labelledby="birthday-title">
-        <h1 className="visually-hidden" id="birthday-title">Happy Birthday, Bhaursy!</h1>
+        <h1 className="visually-hidden" id="birthday-title">
+          Happy Birthday, Bhaursy!
+        </h1>
+
         <div className="greeting-topline" aria-hidden="true">
           <span className="topline-rule" />
           <span>A LITTLE MAGIC, JUST FOR YOU</span>
@@ -168,11 +165,19 @@ function App() {
           <div className="artwork-scene">
             <img
               className="artwork"
-              src="/bhaursy-birthday.png"
-              alt="A pink beach sunset birthday scene with a cake, flowers, and hearts. It reads: A LITTLE MAGIC, JUST FOR YOU. Happy Birthday, Bhaursy! May all your dreams come true, always..."
+              src={birthdayImage}
+              alt="A pink beach sunset birthday scene with a cake, flowers, and hearts. Happy Birthday, Bhaursy!"
               fetchPriority="high"
             />
-            <OceanWaves />
+
+            <img
+              className="ocean-waves"
+              src={waterImage}
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+            />
+
             {candlesLit ? (
               <span
                 key={`candle-${candlePulse}`}
@@ -186,8 +191,13 @@ function App() {
                 <span className="smoke-puff smoke-puff-three" />
               </div>
             )}
+
             {wishCelebration > 0 && (
-              <div key={`wish-${wishCelebration}`} className="wish-sparkles" aria-hidden="true">
+              <div
+                key={`wish-${wishCelebration}`}
+                className="wish-sparkles"
+                aria-hidden="true"
+              >
                 <span><SparkleIcon /></span>
                 <span><HeartIcon /></span>
                 <span><SparkleIcon /></span>
@@ -209,6 +219,7 @@ function App() {
             <span>Light the Candles</span>
             <HeartIcon />
           </button>
+
           <button
             className="action-button"
             type="button"
@@ -219,6 +230,7 @@ function App() {
             <span>Blow Them Out</span>
             <HeartIcon />
           </button>
+
           <button
             ref={wishTriggerRef}
             className="action-button action-button-wish"
@@ -237,12 +249,16 @@ function App() {
 
         <div className="under-art">
           <p className="after-note">A little piece of this sunset, just for you.</p>
+
           <button className="share-button" type="button" onClick={shareWish}>
             <ShareIcon />
             <span>Share this wish</span>
           </button>
         </div>
-        <p className="share-status" role="status" aria-live="polite">{shareStatus}</p>
+
+        <p className="share-status" role="status" aria-live="polite">
+          {shareStatus}
+        </p>
       </section>
 
       {wishOpen && (
@@ -269,11 +285,17 @@ function App() {
             >
               <span aria-hidden="true">×</span>
             </button>
-            <span className="wish-modal-icon"><SparkleIcon /></span>
+
+            <span className="wish-modal-icon">
+              <SparkleIcon />
+            </span>
+
             <h2 id="wish-title">Make a little wish</h2>
+
             <p id="wish-description">
               Close your eyes and think of something wonderful. Your wish is yours to keep.
             </p>
+
             <button
               ref={wishConfirmRef}
               className="wish-confirm"
@@ -291,3 +313,4 @@ function App() {
 }
 
 export default App;
+```
